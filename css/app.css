@@ -1,0 +1,228 @@
+html, body, div, span, h1,
+h2, h3, h4, h5, h6, ul, li, nav{
+    font-size: 100%;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+header, main, footer, nav{
+    display: block;
+}
+
+ul{
+    list-style-type: none;
+}
+
+@font-face {
+    font-family: 'pixel';
+    src: url('../fonts/pixelFont.ttf');
+}
+
+html{
+    font-size:62.5%;
+}
+
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    min-height:100vh;
+    background-color: #0e0e0e;
+    font-family: 'pixel';
+    font-size:16px;
+    font-size:1.6rem;
+}
+
+.button{
+    background: #1e1e1e;
+    color:#fff;
+    border:2px solid #0e0e0e;
+    padding:15px;
+    cursor:pointer;
+    outline:none;
+    font-family: 'pixel';
+}
+
+#content{
+    width:300px;
+    height:300px;
+    border-radius: 100%;
+    background-color: #1e1e1e;
+    position:relative;
+    animation: content--show 3s;
+}
+
+.content__left,.content__right{
+    position:absolute;
+    width:70px;
+    height:70px;
+    background:#fff;
+    border-radius:100%;
+    box-sizing: border-box;
+    padding-top:5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:3.5rem;
+    color:#1e1e1e;
+    cursor:pointer;
+    top:50%;
+    margin-top:-35px;
+    z-index:1000;
+    user-select: none;
+    transition: all 1s;
+    animation: button--show 4s;
+}
+
+.content__left:hover, .content__right:hover{
+    color:#fff;
+    background:#161616;
+    box-shadow: #000 0 0 20px;
+}
+
+.content__left{
+    left:-30px;
+}
+
+
+.content__right{
+    right:-30px;
+    padding-left:10px;
+}
+
+.logo{
+    margin-top:100px;
+    color:#fff;
+    text-shadow: #000 1px 0 10px;
+}
+
+.logo__title{
+    font-size:3rem;
+}
+
+.logo__sub{
+    font-size:1.5rem;
+}
+
+.character{
+    width: 48px;
+    height: 48px;
+    position: relative;
+    left: 0;
+    bottom:-180px;
+    margin: auto;
+    background: red;
+    background: url('../images/character.gif');
+    z-index: 1;
+    background-position: 0 0;
+    pointer-events: none;
+}
+
+.character--coming{
+    animation: character--coming 4s;
+}
+
+.character--walk{
+    animation: character--walk 0.5s infinite steps(5);
+}
+
+.character--left{
+    transform: scale(-1, 1);
+}
+
+.content__box{
+    width:300px;
+    height:300px;
+    text-align: center;
+}
+
+.menu__item{
+    padding-top:100px;
+}
+
+.menu__link{
+    text-decoration: none;
+    font-size:3rem;
+    color:#fff;
+    text-shadow: #1d1d1d 1px 0 10px;
+    transition: text-shadow 1s;
+}
+
+.menu__link:hover{
+    text-shadow: #000 1px 0 15px;
+}
+
+.content__overflow{
+    border-radius: 100%;
+    overflow:hidden;
+    width:300px;
+    height:300px;
+    position:relative;
+}
+
+.content__background{
+    position:absolute;
+    top:0;
+    left:-300px;
+    height:300px;
+    min-width:600px;
+    padding:0 300px;
+    background-image: url('../images/background.png');
+    background-size: contain;
+    display:flex;
+    animation: background--show 3s;
+}
+
+@keyframes content--show {
+    0%{
+        width:0px;
+        height:0px;
+    }
+    80%{
+        width:300px;
+        height:300px;
+    }
+}
+
+@keyframes button--show {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes character--coming {
+    0%{
+        left:-300px;
+    }
+    50%{
+        left:-300px;
+    }
+    100%{
+        left:0;
+    }
+}
+
+@keyframes character--walk {
+    to{ background-position: 100% 0; }
+}
+
+@keyframes background--show {
+    0%{
+        opacity: 0;
+    }
+    80%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
