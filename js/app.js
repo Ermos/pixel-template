@@ -20,7 +20,7 @@ var boxWidth = box[0].offsetWidth;
 // Session Information
 var speed = 10;
 var maxCursor = -box.length * boxWidth - boxWidth;
-var movementId;
+var movementId = null;
 var menuPosition = 1;
 var backgroundPosition = background.offsetLeft;
 var minPosition = 0;
@@ -77,6 +77,10 @@ function movement(direction){
     var startPosition = backgroundPosition;
     var resetPosition = false;
 
+    if(movementId !== null){
+        return;
+    }
+
     if(direction === "left"){
 
         var Position = startPosition+boxWidth;
@@ -101,7 +105,8 @@ function movement(direction){
                     if(maxCursor+boxWidth <= backgroundPosition){
                         resetPosition = false;
                         movementStyle('left', 'remove');
-                        return clearInterval(movementId);
+                        clearInterval(movementId);
+                        return movementId = null;
                     }
                 }
 
@@ -109,7 +114,8 @@ function movement(direction){
 
                 if(Position <= backgroundPosition){
                     movementStyle('left', 'remove');
-                    return clearInterval(movementId);
+                    clearInterval(movementId);
+                    return movementId = null;
                 }
             }
 
@@ -142,14 +148,16 @@ function movement(direction){
                     if(-boxWidth >= backgroundPosition){
                         resetPosition = false;
                         movementStyle('right', 'remove');
-                        return clearInterval(movementId);
+                        clearInterval(movementId);
+                        return movementId = null;
                     }
                 }
 
             }else{
                 if(Position >= backgroundPosition){
                     movementStyle('right', 'remove');
-                    return clearInterval(movementId);
+                    clearInterval(movementId);
+                    return movementId = null;
                 }
             }
 
