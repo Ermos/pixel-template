@@ -26,27 +26,101 @@ html{
 }
 
 body{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    min-height:100vh;
     background-color: #0e0e0e;
-    font-family: 'pixel';
     font-size:16px;
     font-size:1.6rem;
 }
 
-.button{
-    background: #1e1e1e;
+.page-example{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:4rem;
     color:#fff;
-    border:2px solid #0e0e0e;
-    padding:15px;
-    cursor:pointer;
-    outline:none;
-    font-family: 'pixel';
+    height:100vh;
 }
 
-#content{
+.hamburger{
+    position:fixed;
+    top:2.5rem;
+    right:2.5rem;
+    width:70px;
+    height:70px;
+    background:#fff;
+    border-radius: 100%;
+    cursor:pointer;
+    transition: background 1s;
+    z-index:999;
+}
+
+.hamburger:hover{
+    background:#161616;
+}
+
+.hamburger--flip{
+    animation: hamburger--flip 1s;
+}
+
+.hamburger__line{
+    background: #161616;
+    width:1.5rem;
+    height:0.3rem;
+    display:block;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left:-0.75rem;
+    transition: background 1s;
+}
+
+.hamburger:hover .hamburger__line{
+    background:#fff;
+}
+
+.hamburger__line:nth-child(1){
+    margin-top:-0.6rem;
+}
+
+.hamburger__line:nth-child(2){
+    margin-top:-0.15rem;
+}
+
+.hamburger__line:nth-child(3){
+    margin-top:0.35rem;
+}
+
+.hamburger--active .hamburger__line:nth-child(1){
+    transform: rotate(45deg);
+    margin-top: -0.15rem;
+}
+
+.hamburger--active .hamburger__line:nth-child(2){
+    transform: rotate(-45deg);
+}
+
+.hamburger--active .hamburger__line:nth-child(3){
+    transform: rotate(45deg);
+    margin-top: -0.15rem;
+}
+
+.menu{
+    width:100%;
+    height:100%;
+    display:none;
+    align-items: center;
+    justify-content: center;
+    font-family: 'pixel';
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:500;
+}
+
+.menu--show{
+    display:flex;
+}
+
+.menu__circle{
     width:300px;
     height:300px;
     border-radius: 100%;
@@ -55,7 +129,7 @@ body{
     animation: content--show 3s;
 }
 
-.content__left,.content__right{
+.menu__button{
     position:absolute;
     width:70px;
     height:70px;
@@ -77,73 +151,66 @@ body{
     animation: button--show 4s;
 }
 
-.content__left:hover, .content__right:hover{
+.menu__button:hover{
     color:#fff;
     background:#161616;
     box-shadow: #000 0 0 20px;
 }
 
-.content__left{
+.menu__left{
     left:-30px;
 }
 
 
-.content__right{
+.menu__right{
     right:-30px;
     padding-left:10px;
 }
 
-.logo{
+.menu__logo{
     margin-top:100px;
     color:#fff;
     text-shadow: #000 1px 0 10px;
+    text-decoration: none;
 }
 
-.logo__title{
+.menu__title{
     font-size:3rem;
 }
 
-.logo__sub{
+.menu__sub{
     font-size:1.5rem;
 }
 
-.character{
+.menu__character{
     width: 48px;
     height: 48px;
     position: relative;
     left: 0;
     bottom:-180px;
     margin: auto;
-    background: red;
-    background: url('../images/character.gif');
+    background: url('../images/character.gif') 0 0;
     z-index: 1;
-    background-position: 0 0;
     pointer-events: none;
 }
 
-.character--coming{
+.menu__character--coming{
     animation: character--coming 4s;
 }
 
-.character--walk{
+.menu__character--walk{
     animation: character--walk 0.5s infinite steps(5);
 }
 
-.character--left{
+.menu__character--left{
     transform: scale(-1, 1);
 }
 
-.content__box{
+.menu__box{
     width:300px;
     height:300px;
     text-align: center;
-}
-
-.menu__item{
-    padding-top:100px;
-}
-
-.menu__link{
+    display:block;
     text-decoration: none;
     font-size:3rem;
     color:#fff;
@@ -151,11 +218,15 @@ body{
     transition: text-shadow 1s;
 }
 
+.menu__item{
+    padding-top:100px;
+}
+
 .menu__link:hover{
     text-shadow: #000 1px 0 15px;
 }
 
-.content__overflow{
+.menu__overflow{
     border-radius: 100%;
     overflow:hidden;
     width:300px;
@@ -163,7 +234,7 @@ body{
     position:relative;
 }
 
-.content__background{
+.menu__background{
     position:absolute;
     top:0;
     left:-300px;
@@ -176,10 +247,19 @@ body{
     animation: background--show 3s;
 }
 
+@keyframes hamburger--flip {
+    from{
+        transform: rotateY(0);
+    }
+    to{
+        transform: rotateY(1turn);
+    }
+}
+
 @keyframes content--show {
     0%{
-        width:0px;
-        height:0px;
+        width:0;
+        height:0;
     }
     80%{
         width:300px;

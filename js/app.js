@@ -4,33 +4,67 @@
  *
  ***********************/
 
+// Menu
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.menu');
+
+// Link
+const link = menu.querySelectorAll('a');
+
 // Decor Element
-var content = document.querySelector('#content');
-var background = content.querySelector('.content__background');
-var character = content.querySelector('.character');
-var box = content.querySelectorAll('.content__box');
+var background;
+const character = menu.querySelector('.menu__character');
+var box;
 
 // Movement Element
-var moveLeft = document.querySelector('.content__left');
-var moveRight = document.querySelector('.content__right');
+const moveLeft = document.querySelector('.menu__left');
+const moveRight = document.querySelector('.menu__right');
 
 // Decor Information
-var boxWidth = box[0].offsetWidth;
+var boxWidth;
 
 // Session Information
-var speed = 10;
-var maxCursor = -box.length * boxWidth - boxWidth;
+const speed = 10;
+var maxCursor;
 var movementId = null;
 var menuPosition = 1;
-var backgroundPosition = background.offsetLeft;
+var backgroundPosition;
 var minPosition = 0;
-var maxPosition = boxWidth + speed - background.offsetWidth;
+var maxPosition;
 
 /***********************
  *
  *  Function
  *
  ***********************/
+
+// Initialization
+function init(){
+
+    // Decor Element
+    background = menu.querySelector('.menu__background');
+    box = menu.querySelectorAll('.menu__box');
+
+    // Decor Information
+    boxWidth = box[0].offsetWidth;
+
+    // Session Information
+    maxCursor = -box.length * boxWidth - boxWidth;
+    backgroundPosition = -boxWidth * menuPosition;
+    maxPosition = boxWidth + speed - background.offsetWidth;
+
+    backgroundPositionUpdate();
+}
+
+// Show menu
+function showMenu(){
+    menu.classList.toggle('menu--show');
+    init();
+    hamburger.classList.toggle('hamburger--flip');
+    hamburger.classList.toggle('hamburger--active');
+    character.classList.add('menu__character--coming');
+    setTimeout(function(){ hamburger.classList.toggle('hamburger--flip'); }, 1000);
+}
 
 // Update the background position
 function backgroundPositionUpdate(){
@@ -43,25 +77,25 @@ function backgroundPositionUpdate(){
  */
 function movementStyle(direction, toggle){
 
-    character.classList.remove('character--coming');
+    character.classList.remove('menu__character--coming');
 
     if(direction === "left"){
 
         if(toggle === "add"){
-            character.classList.add('character--left');
-            character.classList.add('character--walk');
+            character.classList.add('menu__character--left');
+            character.classList.add('menu__character--walk');
         }else if(toggle === "remove"){
-            character.classList.remove('character--walk');
+            character.classList.remove('menu__character--walk');
         }
 
     }else if(direction === "right"){
 
-        character.classList.remove('character--left');
+        character.classList.remove('menu__character--left');
 
         if(toggle === "add"){
-            character.classList.add('character--walk');
+            character.classList.add('menu__character--walk');
         }else if(toggle === "remove"){
-            character.classList.remove('character--walk');
+            character.classList.remove('menu__character--walk');
         }
 
     }
@@ -100,7 +134,7 @@ function movement(direction){
                     backgroundPosition = maxPosition;
                     return resetPosition = true;
                 }
-
+                console.log('test');
                 if(resetPosition === true){
                     if(maxCursor+boxWidth <= backgroundPosition){
                         resetPosition = false;
@@ -185,3 +219,15 @@ moveLeft.addEventListener('click', function(){
 moveRight.addEventListener('click', function(){
     movement('right');
 });
+
+hamburger.addEventListener('click', function(){
+    showMenu();
+});
+
+for(var i = 0;i < link.length;i++){
+    link[i]["pageId"] = i+1;
+    link[i].addEventListener('click', function(){
+        menuPosition = this["pageId"];
+        showMenu();
+    })
+}
