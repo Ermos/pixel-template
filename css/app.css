@@ -16,6 +16,10 @@ ul{
     list-style-type: none;
 }
 
+a, button{
+    -webkit-tap-highlight-color: transparent;
+}
+
 @font-face {
     font-family: 'pixel';
     src: url('../fonts/pixelFont.ttf');
