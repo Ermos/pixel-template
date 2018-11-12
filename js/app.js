@@ -4,6 +4,11 @@
  *
  ***********************/
 
+// Page Info [If it's a onepage app, if not, remove]
+const pages = document.querySelectorAll('.page-example');
+var scroll = 0;
+var itemMaxLength = 0;
+
 // Menu
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.menu');
@@ -31,6 +36,13 @@ var menuPosition = 1;
 var backgroundPosition;
 var minPosition = 0;
 var maxPosition;
+
+// Page Size Initialization [If it's a onepage app, if not, remove]
+for (var i = 0; i < pages.length; i++) {
+    pages[i]['minLength'] = itemMaxLength;
+    pages[i]['maxLength'] = itemMaxLength + pages[i].offsetHeight;
+    itemMaxLength += pages[i].offsetHeight;
+}
 
 /***********************
  *
@@ -90,9 +102,8 @@ function movementStyle(direction, toggle){
 
     }else if(direction === "right"){
 
-        character.classList.remove('menu__character--left');
-
         if(toggle === "add"){
+            character.classList.remove('menu__character--left');
             character.classList.add('menu__character--walk');
         }else if(toggle === "remove"){
             character.classList.remove('menu__character--walk');
@@ -134,7 +145,7 @@ function movement(direction){
                     backgroundPosition = maxPosition;
                     return resetPosition = true;
                 }
-                console.log('test');
+
                 if(resetPosition === true){
                     if(maxCursor+boxWidth <= backgroundPosition){
                         resetPosition = false;
@@ -205,7 +216,6 @@ function movement(direction){
 }
 
 
-
 /***********************
  *
  *  Listener
@@ -231,3 +241,15 @@ for(var i = 0;i < link.length;i++){
         showMenu();
     })
 }
+
+window.addEventListener('scroll', function(){
+
+    scroll = window.scrollY;
+
+    for (var i = 0; i < pages.length; i++) {
+        if(scroll >= pages[i]['minLength'] && scroll <= pages[i]['maxLength']){
+            menuPosition = i+1;
+        }
+    }
+
+});
