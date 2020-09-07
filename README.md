@@ -4,4 +4,4 @@
 
 an original menu in the style pixel game, made with html/css/js
 
-Show Live: https://ermos.github.io/template/pixelMenu/
+Show Live: https://doplex.fr/demo/template-menu-pixel
